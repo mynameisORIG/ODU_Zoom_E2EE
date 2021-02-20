@@ -1,24 +1,27 @@
-# https://medium.com/datadriveninvestor/end-to-end-encrypted-communication-using-python-a39d1c48a0fe
-import csv
-import urllib.request
-import os
+#!/usr/bin/python3
+
+# library
+import csv, urllib.request, os, base64
 from cryptography.fernet import Fernet
-import base64
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from email import var
+
+# variables
 url = 'https://thingspeak.com/channels/1104680/field/1.csv'
-urllib.request.urlretrieve(url, '/Users/YourName/Desktop/1.csv')
-with open('1.csv') as csv_file:
+
+urllib.request.urlretrieve(url, var.csvLoc)
+with open(var.csvLoc) as csv_file:
 	csv_reader = csv.reader(csv_file)
 	for row in csv_reader:
 		msg=row[2]
-os.remove('/Users/YourName/Desktop/1.csv')
+os.remove(var.csvLoc)
 password_provided = input("Provide the key : ")
 password = password_provided.encode()
 salt = b'salt_'
 kdf = PBKDF2HMAC(
-	algorithm=hashes.SHA256(),
+	algorithm=hashes.SHA512(),
 	length=32,
 	salt=salt,
 	iterations=100000,
