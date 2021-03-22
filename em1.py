@@ -12,14 +12,14 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 # for email
 #import smtplib
 #from email.mime.text import MIMEText
-#from email.Header import Header
+#from email.header import Header
 
 
 #classes
 class var:
     # variables to create E2EE
     csvLoc = '/home/users/slatino1/Git/ODU_Zoom_E2EE/mailing list.csv'
-    csvName = "mailling list.csv"
+    csvName = "./mailing list.csv"
     salt = b'salt_'
     kdf = PBKDF2HMAC(
     algorithm=hashes.SHA512(),
@@ -29,14 +29,14 @@ class var:
     backend=default_backend()
     )
     # variables to emails
-    sender_email = "mymail@gmail.com"
-    receiver_email = "anothermail@gmail.com"
-    password = "mypass"
+    sender_email = "send@email.com"
+    receiver_email = "test@email.com"
+    password = "password"
 
 #functions
 def csv():
     # gather emails from csv file
-    with open(csvName, "rU") as base_file:
+    with open(var.csvName, "rU") as base_file:
         read_base_file = csv.reader(base_file, delimiter=",")
         duplicates_list = []
         rows = [row for row in read_base_file]
@@ -51,12 +51,12 @@ def csv():
 
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Subject: Your Title"
+    message["Subject"] = "Your E2EE Zoom Email"
     message["From"] = var.sender_email
     message["To"] = var.receiver_email
 
     text = """\
-    Subject: Your Title"""
+    Your E2EE Zoom Email"""
 
     html = """\
     <html>
@@ -79,9 +79,10 @@ def csv():
             var.sender_email, var.receiver_email, message.as_string()
         )
 
+#csv()
 
-
-
+# gmail less secure apps
+# https://myaccount.google.com/lesssecureapps
 
 
 

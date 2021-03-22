@@ -15,8 +15,10 @@ key = base64.urlsafe_b64encode(var.kdf.derive(password))
 urllib.request.urlopen
 msg=msg.encode()
 f = Fernet(key)
-msg=var.f.encrypt(msg)
+msg=f.encrypt(msg)
 msg=str(msg)
 print("\nYour encrypted text is: "+msg)
 b=urllib.request.urlopen('https://api.thingspeak.com/update?api_key=489HCQ5PQEJDRFUV&field1='+msg)
 print("\nYour message has successfully been sent with end-to-end encryption!\nThe receiver needs to enter the same key.")
+
+# https://medium.datadriveninvestor.com/end-to-end-encrypted-communication-using-python-a39d1c48a0fe
