@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, urllib, urllib.request, base64
+import sys, urllib, urllib.request, base64,shutil
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
@@ -19,6 +19,7 @@ msg=f.encrypt(msg)
 msg=str(msg)
 print("\nYour encrypted text is: "+msg)
 b=urllib.request.urlopen('https://api.thingspeak.com/update?api_key=489HCQ5PQEJDRFUV&field1='+msg)
+shutil.make_archive('encryption', 'zip', '/home/users/slatino1/Git/ODU_Zoom_E2EE/__pycache__')
 print("\nYour message has successfully been sent with end-to-end encryption!\nThe receiver needs to enter the same key.")
 
 # https://medium.datadriveninvestor.com/end-to-end-encrypted-communication-using-python-a39d1c48a0fe
